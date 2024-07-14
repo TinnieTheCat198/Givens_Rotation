@@ -1,4 +1,5 @@
+numpy
+matplotlib
+opencv-python
 nibabel
-mathplotlib
-cv2
-SimpleITK
+streamlit
