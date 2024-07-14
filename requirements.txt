@@ -2,5 +2,3 @@ nibabel
 mathplotlib
 cv2
 SimpleITK
-streamlit
-numpy
