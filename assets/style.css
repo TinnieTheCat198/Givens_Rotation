@@ -1,0 +1,138 @@
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.example::-webkit-scrollbar {
+    display: none;
+}
+
+.example {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+body {
+    font-family: 'Arial', Courier, monospace;  
+}
+
+header {
+    visibility: collapse;
+}
+
+div[data-testid="stVerticalBlock"]:nth-of-type(1) {
+    gap: 0;
+}
+
+#givens-rotation-simulator {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    padding: 10px;
+    margin-bottom: 0px;
+}
+
+.st-emotion-cache-1jicfl2 {
+    padding: 0;
+}
+
+.st-emotion-cache-pioet2 {
+    justify-content: flex-end;
+}
+
+.st-emotion-cache-qcpnpn {
+    padding-bottom: calc(-1px + 2.5rem);
+}
+
+.appview-container.st-emotion-cache-1yiq2ps.ea3mdgi9 {
+    background-color: #333;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    background-image: url('https://i.redd.it/webmy1mcwby91.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-grow: 1;
+    height: 100%;
+}
+.st-emotion-cache-1erivf3 {
+    border: 3px solid #ffa32c;
+}
+
+.st-emotion-cache-6rlrad {
+    fill: #ffa32c
+}
+
+.st-emotion-cache-1l05b00 {
+    gap: 0;
+}
+
+.st-emotion-cache-cuel5e {
+    flex-direction: row;
+    justify-content: center;
+    align-items: end;
+}
+
+.st-emotion-cache-1kyxreq.e115fcil2{
+    width: 0px;
+    justify-content: flex-end;
+}
+
+.st-emotion-cache-h4xjwg.ezrtsby2 {
+    background-color: #333333;
+}
+
+.st-emotion-cache-qcpnpn:nth-of-type(1){
+    padding-top: 0;
+}
+
+.st-emotion-cache-qcpnpn:nth-of-type(2){
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 10vh;
+    background-color: #333333;
+    border-radius: 0px;
+}
+
+.st-emotion-cache-1kyxreq.e115fcil2 {
+    justify-content: center;
+}
+
+.website-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+}
+
+.st-emotion-cache-qcpnpn:nth-of-type(3) {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    /* align-items: center; */
+    flex: 1 0 auto;
+    min-height: 83vh;
+    padding: 3vh 15vw 5vh 15vw;
+    background-color: rgba(51, 51, 51, 0.8);
+    border-radius: 0;
+}
+
+#MainMenu {
+    display: none;
+}
+
+#stDecoration {
+    display: none;
+}
+
+.footer {
+    background-color: #333333;
+    padding: 10px;
+}
