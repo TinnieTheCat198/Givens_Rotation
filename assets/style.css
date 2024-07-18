@@ -44,7 +44,7 @@ div[data-testid="stVerticalBlock"]:nth-of-type(1) {
 }
 
 .st-emotion-cache-qcpnpn {
-    padding-bottom: calc(-1px + 2.5rem);
+    padding: 10px;
 }
 
 .appview-container.st-emotion-cache-1yiq2ps.ea3mdgi9 {
@@ -59,6 +59,8 @@ div[data-testid="stVerticalBlock"]:nth-of-type(1) {
     display: flex;
     flex-grow: 1;
     height: 100%;
+    overflow: hidden;
+    gap: 1rem
 }
 .st-emotion-cache-1erivf3 {
     border: 3px solid #ffa32c;
@@ -112,6 +114,14 @@ div[data-testid="stVerticalBlock"]:nth-of-type(1) {
     gap: 1em;
 }
 
+.subtitle {
+    padding-top: 0;
+    font-style: italic;
+    font-size: 1.5rem;
+    font-weight: 200;
+    font-family: monospace;
+}
+
 .st-emotion-cache-qcpnpn:nth-of-type(3) {
     display: flex;
     flex-direction: column;
@@ -135,4 +145,40 @@ div[data-testid="stVerticalBlock"]:nth-of-type(1) {
 .footer {
     background-color: #333333;
     padding: 10px;
+}
+
+.footer p {
+    margin: 0;
+}
+
+[data-testid="ScrollToBottomContainer"] {
+    overflow: hidden;
+}
+
+button.st-emotion-cache-15hul6a.ef3psqc12 {
+    margin-top: 20px;
+}
+
+div.st-emotion-cache-xlis0j,
+div.st-emotion-cache-1nnii33 {
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-bottom: 20px;
+    padding-left: 10%;
+    padding-right: 10%;
+    border-color: transparent;
+    background-color: #333333;
+    overflow: hidden;
+}
+
+div.stNumberInput {
+    margin-top: 10px;
+}
+
+div.st-emotion-cache-j78z8c.e1se5lgy0 {
+    justify-content: center;
+}
+
+#input-for-rotation {
+    text-align: center;
 }
