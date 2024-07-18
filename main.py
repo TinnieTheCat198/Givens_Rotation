@@ -99,6 +99,7 @@ with st.container(border=True):
                         st.pyplot(plot_slices(rotate_image_3d(image_np,angles=(x_input,y_input,z_input))), clear_figure=True)
                     else:
                         image_np = cv2.imread(path)
+                        image_np = cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB)
                         rotated_image = rotate_image_givens(image_np,angle)
                         st.image(rotated_image,use_column_width=True)
         

@@ -13,28 +13,41 @@ def rotate_image_givens(image, angle):
     G = givens_rotation(theta)
     
     # Get the dimensions of the image
-    (h, w) = image.shape[:2]
+    (h, w, d) = image.shape
+    print(image.shape)
     
     # Get the center of the image
     center = np.array([w / 2, h / 2])
     
     # Create an output image filled with zeros (black)
     rotated = np.zeros_like(image)
+
+    # print(len(image.shape))
+    
+    # # Handle both grayscale and color images
+    # if len(image.shape) == 2:  # Grayscale image
+    #     channels = 1
+    # else:  # Color image
+    #     channels = image.shape[2]
     
     # Iterate through each pixel in the output image
-    for i in range(h):
-        for j in range(w):
+    for c in range(d):
+        for i in range(h):
+            for j in range(w):
             # Compute the coordinates of the pixel relative to the center
-            relative_coords = np.array([j, i]) - center
-            
-            # Apply the inverse Givens rotation to the coordinates
-            original_coords = np.dot(G.T, relative_coords) + center
-            
-            # Get the nearest pixel in the original image
-            original_x, original_y = original_coords.astype(int)
-            
-            # Check if the original coordinates are within bounds
-            if 0 <= original_x < w and 0 <= original_y < h:
-                rotated[i, j] = image[original_y, original_x]
+                relative_coords = np.array([j, i]) - center
+                
+                # Apply the inverse Givens rotation to the coordinates
+                original_coords = np.dot(G.T, relative_coords) + center
+                
+                # Get the nearest pixel in the original image
+                original_x, original_y = original_coords.astype(int)
+                
+                # Check if the original coordinates are within bounds
+                if 0 <= original_x < w and 0 <= original_y < h:
+                    # if channels == 1:  # Grayscale image
+                    #     rotated[i, j] = image[original_y, original_x]
+                    # else:  # Color image
+                        rotated[i, j, c] = image[original_y, original_x, c]
     
     return rotated

@@ -4,14 +4,14 @@ html, body {
     flex-direction: column;
 }
 
-.example::-webkit-scrollbar {
+/* .example::-webkit-scrollbar {
     display: none;
 }
 
 .example {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
-}
+} */
 
 body {
     font-family: 'Arial', Courier, monospace;  
