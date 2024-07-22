@@ -3,5 +3,4 @@ matplotlib
 nibabel
 streamlit
 SimpleITK
-dicom2jpg
 pillow

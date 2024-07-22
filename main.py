@@ -1,30 +1,14 @@
 from three_dimensional_process import load_nifti_file, plot_slices, rotate_image_3d
 from two_dimensional_process import rotate_image_givens
-import os
 import streamlit as st
+import os
 import numpy as np
 import tempfile
-import dicom2jpg
 from PIL import Image
 
 def inject_custom_css():
     with open('assets/style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-
-def delete_file_output():
-    # Specify the file pattern to delete
-    file_pattern = "output.*"
-    # Get the current working directory
-    cwd = os.getcwd()
-    # Loop through all files in the current directory
-    for filename in os.listdir(cwd):
-        # Check if the file matches the pattern
-        if filename.startswith("output."):
-            # Construct the full file path
-            file_path = os.path.join(cwd, filename)
-            # Delete the file
-            os.remove(file_path)
-            print(f"Deleted file: {filename}")
 
 st.set_page_config(page_title='AlgivensStream', layout="wide", page_icon="assets/crab.ico")
 
@@ -82,15 +66,14 @@ with st.container(border=True):
                 image_np = load_nifti_file(path)
                 fig = plot_slices(image_np)
                 st.pyplot(fig, clear_figure=True)
-            elif (is_2d_dicom == True):
-                img_data = dicom2jpg.dicom2img(path)
-                st.image(img_data)     
+            # elif (is_2d_dicom == True):
+                # # img_data = dicom2jpg.dicom2img(path)
+                # st.image(img_data)     
             else:
                 st.image(uploaded_file)
 
         with col2:
             if submit_button:
-                delete_file_output()
                 st.subheader(":oranged[Result]")
                 with st.spinner("In progress..."):
                     if (is_nifti == True):
