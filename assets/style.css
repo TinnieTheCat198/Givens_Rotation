@@ -4,6 +4,18 @@ html, body {
     flex-direction: column;
 }
 
+<<<<<<< HEAD
+=======
+.example::-webkit-scrollbar {
+    display: none;
+}
+
+.example {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+>>>>>>> parent of 3f763cd (fix color format in 2D image)
 body {
     font-family: 'Arial', Courier, monospace;  
 }

@@ -3,4 +3,4 @@ matplotlib
 nibabel
 streamlit
 SimpleITK
-pillow
+opencv-python-headless

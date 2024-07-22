@@ -4,7 +4,7 @@ import streamlit as st
 import os
 import numpy as np
 import tempfile
-from PIL import Image
+import cv2
 
 def inject_custom_css():
     with open('assets/style.css') as f:
@@ -65,10 +65,7 @@ with st.container(border=True):
             if (is_2d_image == False and is_2d_dicom == False):
                 image_np = load_nifti_file(path)
                 fig = plot_slices(image_np)
-                st.pyplot(fig, clear_figure=True)
-            # elif (is_2d_dicom == True):
-                # # img_data = dicom2jpg.dicom2img(path)
-                # st.image(img_data)     
+                st.pyplot(fig, clear_figure=True)   
             else:
                 st.image(uploaded_file)
 
@@ -76,15 +73,12 @@ with st.container(border=True):
             if submit_button:
                 st.subheader(":oranged[Result]")
                 with st.spinner("In progress..."):
-                    if (is_nifti == True):
+                    if (is_2d_image == False):
                         st.pyplot(plot_slices(rotate_image_3d(image_np,angles=(x_input,y_input,z_input))), clear_figure=True)
-                    elif (is_2d_dicom == True):
-                        rotated_image = rotate_image_givens(img_data,angle)
-                        st.image(rotated_image,use_column_width=True)
                     else:
-                        image_np = Image.open(path)
-                        # image_np = cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB)
-                        rotated_image = rotate_image_givens(np.array(image_np),angle)
+                        image_np = cv2.imread(path)
+                        image_np = cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB)
+                        rotated_image = rotate_image_givens(image_np,angle)
                         st.image(rotated_image,use_column_width=True)
         
 
