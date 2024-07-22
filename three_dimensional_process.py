@@ -1,7 +1,6 @@
 import numpy as np
 import nibabel as nib
 import matplotlib.pyplot as plt
-import pydicom
 
 def givens_rotation_x(theta):
     return np.array([[1, 0, 0],
@@ -75,19 +74,3 @@ def load_nifti_file(filepath):
     nifti_img = nib.load(filepath)
     image_np = np.asanyarray(nifti_img.dataobj)
     return image_np
-
-def load_single_dicom(file_path):
-    dicom = pydicom.dcmread(file_path)
-    image = dicom.pixel_array
-    return image
-
-
-
-
-# image = nib.load(file_path).get_fdata()
-
-# Define rotation angles (in degrees) for each axis (x, y, z)
-# angles = (30, 45, 60)
-
-# Rotate the 3D image
-# rotated_image = rotate_image_3d(image, angles)
