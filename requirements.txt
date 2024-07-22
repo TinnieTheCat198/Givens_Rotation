@@ -1,7 +1,7 @@
 numpy
 matplotlib
-opencv-python-headless
 nibabel
 streamlit
 SimpleITK
 dicom2jpg
+opencv-python-headless
