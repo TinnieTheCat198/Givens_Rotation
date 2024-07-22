@@ -1,11 +1,12 @@
 from three_dimensional_process import load_nifti_file, plot_slices, rotate_image_3d
 from two_dimensional_process import rotate_image_givens
-import cv2
+# import cv2
 import os
 import streamlit as st
 import numpy as np
 import tempfile
 import dicom2jpg
+from PIL import Image
 
 def inject_custom_css():
     with open('assets/style.css') as f:
@@ -99,9 +100,9 @@ with st.container(border=True):
                         rotated_image = rotate_image_givens(img_data,angle)
                         st.image(rotated_image,use_column_width=True)
                     else:
-                        image_np = cv2.imread(path)
-                        image_np = cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB)
-                        rotated_image = rotate_image_givens(image_np,angle)
+                        image_np = Image.open(path)
+                        # image_np = cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB)
+                        rotated_image = rotate_image_givens(np.array(image_np),angle)
                         st.image(rotated_image,use_column_width=True)
         
 

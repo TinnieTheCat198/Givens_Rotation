@@ -4,4 +4,4 @@ nibabel
 streamlit
 SimpleITK
 dicom2jpg
-opencv-python-headless
+pillow
