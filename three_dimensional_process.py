@@ -1,7 +1,7 @@
 import numpy as np
 import nibabel as nib
 import matplotlib.pyplot as plt
-
+import pydicom
 
 def givens_rotation_x(theta):
     return np.array([[1, 0, 0],
@@ -76,15 +76,10 @@ def load_nifti_file(filepath):
     image_np = np.asanyarray(nifti_img.dataobj)
     return image_np
 
-# def load_and_store_dicom_series(directory, session_key):
-#     if session_key not in st.session_state:
-#         reader = sitk.ImageSeriesReader()
-#         dicom_names = reader.GetGDCMSeriesFileNames(directory)
-#         reader.SetFileNames(dicom_names)
-#         image_sitk = reader.Execute()
-#         image_np = sitk.GetArrayFromImage(image_sitk)
-#         st.session_state[session_key] = image_np
-#     return st.session_state[session_key]
+def load_single_dicom(file_path):
+    dicom = pydicom.dcmread(file_path)
+    image = dicom.pixel_array
+    return image
 
 
 

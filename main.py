@@ -2,11 +2,10 @@ from three_dimensional_process import load_nifti_file, plot_slices, rotate_image
 from two_dimensional_process import rotate_image_givens
 import cv2
 import os
-import SimpleITK as sitk
 import streamlit as st
-import streamlit.components.v1 as components
 import numpy as np
 import tempfile
+import dicom2jpg
 
 def inject_custom_css():
     with open('assets/style.css') as f:
@@ -23,7 +22,6 @@ def delete_file_output():
         if filename.startswith("output."):
             # Construct the full file path
             file_path = os.path.join(cwd, filename)
-            
             # Delete the file
             os.remove(file_path)
             print(f"Deleted file: {filename}")
@@ -46,11 +44,12 @@ with st.container(border=True):
 # Load a real 3D image (e.g., NIfTI file)
 # file_path = './testcase/zstat1.nii'  # Replace with your 3D image file path
 with st.container(border=True):
-    uploaded_file = st.file_uploader("Choose an image file", accept_multiple_files=False, type=["dcm", "nii", "nii.gz", "jpg"], key="file_uploader",)
+    uploaded_file = st.file_uploader("Choose an image file", accept_multiple_files=False, type=["dcm", "nii", "nii.gz", "jpg", "DCM"], key="file_uploader",)
     # st.rerun()    
     if uploaded_file:
         is_nifti = False
-        is_jpg = False
+        is_2d_image = False
+        is_2d_dicom = False
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_dir = tempfile.mkdtemp()
             path = os.path.join(temp_dir, uploaded_file.name)
@@ -60,18 +59,14 @@ with st.container(border=True):
         
         if uploaded_file.name.endswith(('.nii', '.nii.gz')):
             is_nifti = True
-        if uploaded_file.name.endswith(('.jpg')):
-            is_jpg = True
+        if uploaded_file.name.endswith(('.jpg', '.jpeg', '.png', '.DCM')):
+            is_2d_image = True
+        if uploaded_file.name.endswith(('.DCM')):
+            is_2d_dicom = True
         
-        # if is_nifti:
-        #     image_np = load_nifti_file(file_name)
-            # else:
-            #     image_np = load_and_store_dicom_series(temp_dir, "dicom_image_data")
-        # axial_slice_num = st.slider(' ', 0, image_np.shape[2] - 1, 0, key="axial_slider")
-        
-        c = st.container(border=True,height=230 if is_jpg else 380)
+        c = st.container(border=True,height=230 if is_2d_image else 380)
         c.subheader("Input For Rotation")
-        if (is_jpg == False):
+        if (is_2d_image == False):
             x_input = c.number_input("x = ", min_value=0, max_value=360, value=0, step=1)
             y_input = c.number_input("y = ", min_value=0, max_value=360, value=0, step=1)
             z_input = c.number_input("z = ", min_value=0, max_value=360, value=0, step=1)
@@ -83,20 +78,26 @@ with st.container(border=True):
 
         with col1:
             st.subheader(":oranged[Original Image]")
-            if (is_jpg == False):
+            if (is_2d_image == False and is_2d_dicom == False):
                 image_np = load_nifti_file(path)
                 fig = plot_slices(image_np)
                 st.pyplot(fig, clear_figure=True)
+            elif (is_2d_dicom == True):
+                img_data = dicom2jpg.dicom2img(path)
+                st.image(img_data)     
             else:
                 st.image(uploaded_file)
 
         with col2:
             if submit_button:
                 delete_file_output()
-                st.subheader(":oranged[Result:]")
+                st.subheader(":oranged[Result]")
                 with st.spinner("In progress..."):
-                    if (is_jpg == False):
+                    if (is_nifti == True):
                         st.pyplot(plot_slices(rotate_image_3d(image_np,angles=(x_input,y_input,z_input))), clear_figure=True)
+                    elif (is_2d_dicom == True):
+                        rotated_image = rotate_image_givens(img_data,angle)
+                        st.image(rotated_image,use_column_width=True)
                     else:
                         image_np = cv2.imread(path)
                         image_np = cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB)
