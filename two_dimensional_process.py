@@ -13,10 +13,8 @@ def rotate_image_givens(image, angle):
     G = givens_rotation(theta)
     
     # Get the dimensions of the image
-    if (image.shape == 3):
-        (h, w, d) = image.shape
-    else:
-         (h,w) = image.shape
+    
+    (h, w, d) = image.shape
     
     # Get the center of the image
     center = np.array([w / 2, h / 2])
@@ -25,42 +23,23 @@ def rotate_image_givens(image, angle):
     rotated = np.zeros_like(image)
     
     # Iterate through each pixel in the output image
-    if (image.shape == 3):
-        for c in range(d):
-            for i in range(h):
-                for j in range(w):
-                # Compute the coordinates of the pixel relative to the center
-                    relative_coords = np.array([j, i]) - center
-                    
-                    # Apply the inverse Givens rotation to the coordinates
-                    original_coords = np.dot(G.T, relative_coords) + center
-                    
-                    # Get the nearest pixel in the original image
-                    original_x, original_y = original_coords.astype(int)
-                    
-                    # Check if the original coordinates are within bounds
-                    if 0 <= original_x < w and 0 <= original_y < h:
-                        # if channels == 1:  # Grayscale image
-                        #     rotated[i, j] = image[original_y, original_x]
-                        # else:  # Color image
-                            rotated[i, j, c] = image[original_y, original_x, c]
-    else:
-        for i in range(h):
-                for j in range(w):
-                # Compute the coordinates of the pixel relative to the center
-                    relative_coords = np.array([j, i]) - center
-                    
-                    # Apply the inverse Givens rotation to the coordinates
-                    original_coords = np.dot(G.T, relative_coords) + center
-                    
-                    # Get the nearest pixel in the original image
-                    original_x, original_y = original_coords.astype(int)
-                    
-                    # Check if the original coordinates are within bounds
-                    if 0 <= original_x < w and 0 <= original_y < h:
-                        # if channels == 1:  # Grayscale image
-                        #     rotated[i, j] = image[original_y, original_x]
-                        # else:  # Color image
-                            rotated[i, j] = image[original_y, original_x] 
     
+    for c in range(d):
+        for i in range(h):
+            for j in range(w):
+            # Compute the coordinates of the pixel relative to the center
+                relative_coords = np.array([j, i]) - center
+                
+                # Apply the inverse Givens rotation to the coordinates
+                original_coords = np.dot(G.T, relative_coords) + center
+                
+                # Get the nearest pixel in the original image
+                original_x, original_y = original_coords.astype(int)
+                
+                # Check if the original coordinates are within bounds
+                if 0 <= original_x < w and 0 <= original_y < h:
+                    # if channels == 1:  # Grayscale image
+                    #     rotated[i, j] = image[original_y, original_x]
+                    # else:  # Color image
+                        rotated[i, j, c] = image[original_y, original_x, c]
     return rotated
