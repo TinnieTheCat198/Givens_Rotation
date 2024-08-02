@@ -61,7 +61,7 @@ with st.container(border=True):
         col1, col2 = st.columns(2)
 
         with col1:
-            st.subheader(":oranged[Original Image]")
+            st.subheader("Original Image")
             if (is_2d_image == False and is_2d_dicom == False):
                 image_np = load_nifti_file(path)
                 fig = plot_slices(image_np)
@@ -71,7 +71,7 @@ with st.container(border=True):
 
         with col2:
             if submit_button:
-                st.subheader(":oranged[Result]")
+                st.subheader("Result")
                 with st.spinner("In progress..."):
                     if (is_2d_image == False):
                         st.pyplot(plot_slices(rotate_image_3d(image_np,angles=(x_input,y_input,z_input))), clear_figure=True)
